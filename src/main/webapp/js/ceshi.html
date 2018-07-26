@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title></title>
+    <script src="js/echarts.min.js"></script>
+    <title></title>
+    <style>
+        .navbar {
+            background-color: #0099CC;
+            border-right: 1px #008FBF solid;
+        }
+    </style>
+</head>
+
+<body style="background: #036564;">
+
+
+<div class="row">
+
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a style="width: 50px; height: 50px;" class="houtai2" class="navbar-brand" href="#">&nbsp;&nbsp;<span class="glyphicon glyphicon-home"></span>&nbsp;</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a class="houtai1" href="#">管理控制台 <span class="sr-only">(current)</span></a>
+                    </li>
+
+                    <li class="dropdown">
+                        <a class="houtai1" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">产品与服务 <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+
+                            <li>
+                                &nbsp;&nbsp;<li class="glyphicon glyphicon-road">&nbsp;云服务器ECS
+                            </li>
+                            <li role="separator" class="divider"></li>
+                            <li>
+                                &nbsp;&nbsp;<li class="glyphicon glyphicon-picture">&nbsp;云服务器ECS
+                            </li>
+                            <li role="separator" class="divider"></li>
+                            <li>
+                                &nbsp;&nbsp;<li class="glyphicon glyphicon-gift">&nbsp;云服务器ECS
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a class="houtai1" href="#"><span class="glyphicon glyphicon-bell">0</span></a>
+                    </li>
+                    <li>
+                        <a class="houtai1" href="#"><span class="glyphicon glyphicon-search">搜索</span></a>
+                    </li>
+                    <li class="dropdown">
+                        <a class="houtai1" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">帮助与文档 <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="#">帮助与文档</a>
+                            </li>
+                            <li role="separator" class="divider"></li>
+                            <li>
+                                <a href="#">论坛</a>
+                            </li>
+                            <li role="separator" class="divider"></li>
+                            <li>
+                                <a href="#">博客</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="houtai1" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">1231213@qq.com <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+
+                            <li>
+                                <a href="#">退出</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="houtai1" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">换肤 <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="#">蓝色</a>
+                            </li>
+                            <li role="separator" class="divider"></li>
+                            <li>
+                                <a href="#">蓝色</a>
+                            </li>
+                            <li role="separator" class="divider"></li>
+                            <li>
+                                <a href="#">蓝色</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+</div>
+
+
+
+
+
+<script type="text/javascript" src="js/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="js/bootstrap.js"></script>
+<script>
+    var open = document.querySelector("#open");
+    var flag = true;
+    open.onclick = function() {
+        var open = document.querySelector("#glone");
+        if(flag) {
+            open.style.display = "none"
+            flag = false;
+        } else {
+            open.style.display = "block"
+            flag = true;
+        }
+    }
+</script>
+<script>
+    var open2 = document.querySelector("#open2");
+    var flag = true;
+    open2.onclick = function() {
+        var open2 = document.querySelector("#gltwo");
+        if(flag) {
+            open2.style.display = "none"
+            flag = false;
+        } else {
+            open2.style.display = "block"
+            flag = true;
+        }
+    }
+</script>
+
+</body>
+
+</html>
