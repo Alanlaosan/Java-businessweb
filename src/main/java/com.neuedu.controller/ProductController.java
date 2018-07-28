@@ -27,7 +27,6 @@ public class ProductController extends HttpServlet {
 		
 		response.setContentType("text/html;charset=UTF-8");
 		String operation = request.getParameter("operation");
-
 		if (operation != null && !operation.equals("")) {
 			if (operation.equals("1")) {
 				addProduct(request, response);

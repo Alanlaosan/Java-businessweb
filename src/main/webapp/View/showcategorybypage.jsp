@@ -9,7 +9,7 @@
 </head>
 <body>
 
-	<a href="View/addcategory.jsp">添加类别</a>
+	<a href="addcategory.jsp">添加类别</a>
 
 	<h1>欢迎登录电商管理后台系统</h1>
 <form action="category" method="get">
@@ -24,7 +24,7 @@
 				<td>${category.name}</td>
 				<td>${category.desc}</td>
 				<td>${category.stock}</td>
-				<td><a href="category?operation=5&id=${category.id}">修改</a> 
+				<td><a href="category?operation=5&id=${category.id}">修改</a>
 				<a href="category?operation=4&id=${category.id}">删除</a></td>
 			</tr>
 		</c:forEach>
@@ -34,10 +34,10 @@
 
 		<c:choose>
 			<c:when test="${pageFind.currentpage==current}">
-				<a style="color: red" href="categorybypage.do?pageNo=${current}">${current}</a>
+				<a style="color: red" href="category?operation=2&pageNo=${current}&pageSize=4">${current}</a>
 			</c:when>
 			<c:when test="${pageFind.currentpage!=current}">
-				<a href="categorybypage.do?pageNo=${current}">${current}</a>
+				<a href="category?operation=2&pageNo=${current}&pageSize=4">${current}</a>
 			</c:when>
 		</c:choose>
 	</c:forEach>
