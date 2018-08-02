@@ -1,0 +1,17 @@
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neuedu.entity.Account">
+
+    <select id="find" resultType="com.neuedu.entity.Account" parameterType="map">
+         select * FROM  account WHERE  username=#{username} AND  password=#{password}
+    </select>
+
+    <update id="addToken"  parameterType="java.util.Map">
+        UPDATE USER SET token=#{token} WHERE id=#{accountid}
+    </update>
+
+    <select id="findTokenByAccountid" resultType="com.neuedu.entity.Account" parameterType="java.lang.String">
+         select * FROM  account WHERE  token=#{token}
+    </select>
+</mapper>
