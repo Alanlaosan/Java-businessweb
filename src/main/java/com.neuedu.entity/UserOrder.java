@@ -1,6 +1,7 @@
 package com.neuedu.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 订单实体类
@@ -25,6 +26,11 @@ public class UserOrder  implements Serializable{
 	private long close_time;
 	private long  create_time;
 	private long update_time;
+
+
+	//订单明细
+	private List<UserOrderItem> orderItemList;
+
 	public UserOrder(int id, long order_no, int user_id, int shipping_id, double payment, int payment_type, int postage,
 			int status, long payment_time, long send_time, long end_time, long close_time, long create_time,
 			long update_time) {
@@ -131,16 +137,42 @@ public class UserOrder  implements Serializable{
 	public void setUpdate_time(long update_time) {
 		this.update_time = update_time;
 	}
-	@Override
+
+	public List<UserOrderItem> getOrderItemList() {
+		return orderItemList;
+	}
+
+	public void setOrderItemList(List<UserOrderItem> orderItemList) {
+		this.orderItemList = orderItemList;
+	}
+
+	/*@Override
 	public String toString() {
 		return "UserOrder [id=" + id + ", order_no=" + order_no + ", user_id=" + user_id + ", shipping_id="
 				+ shipping_id + ", payment=" + payment + ", payment_type=" + payment_type + ", postage=" + postage
 				+ ", status=" + status + ", payment_time=" + payment_time + ", send_time=" + send_time + ", end_time="
 				+ end_time + ", close_time=" + close_time + ", create_time=" + create_time + ", update_time="
 				+ update_time + "]";
+	}*/
+
+	@Override
+	public String toString() {
+		return "UserOrder{" +
+				"id=" + id +
+				", order_no=" + order_no +
+				", user_id=" + user_id +
+				", shipping_id=" + shipping_id +
+				", payment=" + payment +
+				", payment_type=" + payment_type +
+				", postage=" + postage +
+				", status=" + status +
+				", payment_time=" + payment_time +
+				", send_time=" + send_time +
+				", end_time=" + end_time +
+				", close_time=" + close_time +
+				", create_time=" + create_time +
+				", update_time=" + update_time +
+				", orderItemList=" + orderItemList +
+				'}';
 	}
-	
-	
-	
-	
 }

@@ -16,11 +16,19 @@ public class Cart  implements Serializable{
 	private int productid;
 	
 	private  int  productnum;//商品数量
+	public Cart(int id,int productid, int productnum, Product  product) {
+		super();
+		this.id = id;
+		this.productnum = productnum;
+		this.productid = productid;
+		this.product=product;
+	}
 	public Cart(int id,int productid, int productnum) {
 		super();
 		this.id = id;
 		this.productnum = productnum;
 		this.productid = productid;
+
 	}
 	public Cart() {
 		super();
@@ -50,13 +58,18 @@ public class Cart  implements Serializable{
 		this.productnum = productNum;
 	}
 	@Override
-	public String toString() {
+
+	/*public String toString() {
 		return "Cart [id=" + id + ", productid=" + productid + ", productNum=" + productnum + "]";
+	}*/
+
+	
+	public String toString() {
+		return "Cart{" +
+				"id=" + id +
+				", product=" + product +
+				", productid=" + productid +
+				", productnum=" + productnum +
+				'}';
 	}
-	
-	
-	
-	
-	
-	
 }

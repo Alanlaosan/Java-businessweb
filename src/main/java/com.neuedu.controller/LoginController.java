@@ -72,6 +72,7 @@ public class LoginController extends HttpServlet {
 		
 		String username=request.getParameter("username");
 		String password=request.getParameter("password");
+		//用MD5加密password
 		Account acc= loginService.doLogin(username, MD5Utils.GetMD5Code(password));
 		if(acc!=null) {
 			//登陆成功
@@ -87,8 +88,8 @@ public class LoginController extends HttpServlet {
 			
 			long time=System.currentTimeMillis();
 			String token=MD5Utils.GetMD5Code(username+password+time);
-			
 			loginService.addToken(token,acc);
+
 			//token放到会话域中
 			HttpSession session=request.getSession();
 			session.setAttribute("token", token);

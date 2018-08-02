@@ -8,7 +8,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import java.io.IOException;
 import java.io.Reader;
 
-public class NyBatisUtils {
+public class MyBatisUtils {
 
     private static SqlSessionFactory sqlSessionFactory=null;
     //静态代码块
@@ -16,11 +16,12 @@ public class NyBatisUtils {
         //1读取配置文件
         String resource = "config.xml";
         Reader reader = null;
-        SqlSession session;
+        //SqlSession session;
         try {
             reader = Resources.getResourceAsReader(resource);
             //2，生成SqlSessionFactory，为SqlSession的工厂，用于建立与数据库的会话
             sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
+            System.out.println("sqlSessionFactory=="+sqlSessionFactory);
         } catch (IOException e) {
             e.printStackTrace();
         }

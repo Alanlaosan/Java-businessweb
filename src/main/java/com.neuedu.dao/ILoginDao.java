@@ -2,6 +2,8 @@ package com.neuedu.dao;
 
 import com.neuedu.entity.Account;
 
+import java.util.List;
+
 //接口隔离原则
 public interface ILoginDao {
 
@@ -11,5 +13,6 @@ public interface ILoginDao {
 	
 	public String findTokenByAccountid(int accountid);
 
+	List<Account> findAllUser();
 	
 }

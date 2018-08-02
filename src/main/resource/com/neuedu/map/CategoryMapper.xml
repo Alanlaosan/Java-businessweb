@@ -1,73 +1,37 @@
-<!--
-<!DOCTYPE mapper PUBLIC
-        "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.neuedu.dao.CartDao">
-
-    <insert id="addCart" parameterType="com.neuedu.entity.Cart"
-            statementType="PREPARED" keyColumn="id"
-            keyProperty="id" useGeneratedKeys="true">
-        insert into cart(productid,productnum) VALUE (#{product.id},#{productNum})
-    </insert>
-
-    <resultMap id="cart_product_resultmap" type="com.neuedu.entity.Cart">
-        <id property="id" column="id"></id>
-        <result property="productnum" column="productnum"></result>
-        &lt;!&ndash;select * from product where id=?&ndash;&gt;
-        <association property="product"  javaType="com.neuedu.entity.Product" column="productid">
-            <id property="id" column="productid"></id>
-            <result property="name" column="name"></result>
-            <result property="desc" column="pdesc"></result>
-            <result property="price" column="price"></result>
-            <result property="stock" column="stock"></result>
-            <result property="rule" column="rule"></result>
-        </association>
-    </resultMap>
-    <select id="findAllCart" resultMap="cart_product_resultmap">
-        select c.id id,c.productid productid,c.productnum productnum,p.name name,p.pdesc pdesc,p.price price,p.stock stock,p.rule rule from  cart c
-        left join product p
-        on c.productid=p.id
-    </select>
-
-</mapper>-->
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.neuedu.dao.CartDao">
+<mapper namespace="com.neuedu.entity.Category">
 
-    <!--商品添加到购物车-->
-    <insert id="addCart"  parameterType="com.neuedu.entity.Cart" statementType="PREPARED" keyColumn="id" keyProperty="id"
-            useGeneratedKeys="true">
-        insert into  cart(productid,productnum) VALUES (#{product.id},#{productNum})
+    <!--id是方法名,resultType返回值类型,parameterType参数类型-->
+    <insert id="addCategory" statementType="PREPARED" parameterType="category"
+            keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+        insert into category (name,cdesc,stock) values (#{name},#{desc},#{stock})
     </insert>
 
-
-
-    <resultMap id="cart_product_resultmap" type="com.neuedu.entity.Cart" autoMapping="true">
-        <!--<id property="id" column="id"></id>
-        <result property="productnum" column="productnum"></result>
-        <result property="productid" column="productid"></result>-->
-        <association property="product" javaType="com.neuedu.entity.Product" column="id"  autoMapping="true">
-            <id property="id" column="productid"></id>
-            <!--<result property="name" column="name"></result>-->
-            <result property="desc" column="pdesc"></result>
-            <!--<result property="price" column="price"></result>
-            <result property="stock" column="stock"></result>
-            <result property="rule" column="rule"></result>-->
-        </association>
-    </resultMap>
-    <select id="findAllCart"  resultMap="cart_product_resultmap">
-        select c.id  id ,c.productid productid ,c.productnum productnum ,p.name name,p.pdesc pdesc,p.price price,p.stock stock,p.rule rule from  cart c
-        left join product p
-        on c.productid=p.id
+    <select id="findAll" resultType="com.neuedu.entity.Category">
+        select * from category
     </select>
 
+    <update id="updateCategory" parameterType="category">
+        update category set name=#{name},cdesc=#{desc},stock=#{stock} where id=#{id}
+    </update>
 
-
-    <delete id="clearCart">
-        delete from  cart
-
+    <delete id="deleteCategory" parameterType="category">
+        delete from category where id=#{id}
     </delete>
+
+    <select id="findById" parameterType="Integer" resultType="category">
+        select id,name,cdesc,stock from  category where id=#{id}
+    </select>
+
+    <!--分页查询-->
+    <select id="findTotalPage" resultType="Integer">
+        select count(id) from  category
+    </select>
+    <select id="findCategoryPage" resultType="com.neuedu.entity.Category" parameterType="map">
+        select * from  category limit #{offset},#{pageSize}
+    </select>
 
 </mapper>

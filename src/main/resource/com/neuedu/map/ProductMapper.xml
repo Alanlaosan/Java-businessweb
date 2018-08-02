@@ -1,21 +1,37 @@
 <!DOCTYPE mapper PUBLIC
         "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.neuedu.dao.ProductDao">
+<mapper namespace="com.neuedu.entity.Product">
 
-    <update id="updateProduct" parameterType="com.neuedu.entity.Product">
-        UPDATE product
-        <set>
-            <if test="name!=null">name=#{name},</if>
-            <if test="desc!=null">pdesc=#{desc},</if>
-            <if test="price&gt;0">price=#{price},</if>
-            <if test="rule!=null">rule=#{rule},</if>
-            <if test="image!=null">image=#{image},</if>
-            <if test="stock&gt;0">stock=#{stock},</if>
+    <!--id是方法名,resultType返回值类型,parameterType参数类型-->
+    <insert id="addProduct" parameterType="com.neuedu.entity.Product" keyColumn="id"
+    keyProperty="id" useGeneratedKeys="true" statementType="PREPARED">
+        insert into product(name,pdesc,price,rule,image,stock) values
+        (#{name},#{desc},#{price},#{rule},#{image},#{stock})
+    </insert>
 
-        </set>
-        WHERE id=#{id}
+    <select id="findAll" resultType="com.neuedu.entity.Product">
+        select * from product
+    </select>
+
+    <update id="updateProduct" parameterType="com.neuedu.entity.Product" >
+
+        update product set name=#{name},pdesc=#{desc},price=#{price},rule=#{rule},image=#{image},stock=#{stock} where id=#{id};
     </update>
 
+    <delete id="deleteProduct" parameterType="Integer">
+        delete from product where id=#{id}
+    </delete>
 
+    <select id="findById" parameterType="Integer" resultType="com.neuedu.entity.Product">
+        select * from product where id=#{id}
+    </select>
+
+    <!--分页查询-->
+    <select id="findTotalpage" resultType="Integer">
+        select count(id) from  product
+    </select>
+    <select id="findProductPage" resultType="com.neuedu.entity.Product" parameterType="java.util.Map">
+        select id,name,pdesc,price,rule ,image,stock from  product limit #{offset},#{pageSize}
+    </select>
 </mapper>

@@ -43,6 +43,13 @@ public class Category implements Serializable {
 		this.desc = desc;
 		this.stock = stock;
 	}
+	public Category(String name, String desc,int stock) {
+		super();
+		
+		this.name = name;
+		this.desc = desc;
+		this.stock = stock;
+	}
 
 
 	public int getId() {

@@ -1,73 +1,39 @@
-<!--
-<!DOCTYPE mapper PUBLIC
-        "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.neuedu.dao.CartDao">
-
-    <insert id="addCart" parameterType="com.neuedu.entity.Cart"
-            statementType="PREPARED" keyColumn="id"
-            keyProperty="id" useGeneratedKeys="true">
-        insert into cart(productid,productnum) VALUE (#{product.id},#{productNum})
-    </insert>
-
-    <resultMap id="cart_product_resultmap" type="com.neuedu.entity.Cart">
-        <id property="id" column="id"></id>
-        <result property="productnum" column="productnum"></result>
-        &lt;!&ndash;select * from product where id=?&ndash;&gt;
-        <association property="product"  javaType="com.neuedu.entity.Product" column="productid">
-            <id property="id" column="productid"></id>
-            <result property="name" column="name"></result>
-            <result property="desc" column="pdesc"></result>
-            <result property="price" column="price"></result>
-            <result property="stock" column="stock"></result>
-            <result property="rule" column="rule"></result>
-        </association>
-    </resultMap>
-    <select id="findAllCart" resultMap="cart_product_resultmap">
-        select c.id id,c.productid productid,c.productnum productnum,p.name name,p.pdesc pdesc,p.price price,p.stock stock,p.rule rule from  cart c
-        left join product p
-        on c.productid=p.id
-    </select>
-
-</mapper>-->
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
-<mapper namespace="com.neuedu.dao.CartDao">
-
-    <!--商品添加到购物车-->
-    <insert id="addCart"  parameterType="com.neuedu.entity.Cart" statementType="PREPARED" keyColumn="id" keyProperty="id"
-            useGeneratedKeys="true">
-        insert into  cart(productid,productnum) VALUES (#{product.id},#{productNum})
-    </insert>
+        PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 
-
-    <resultMap id="cart_product_resultmap" type="com.neuedu.entity.Cart" autoMapping="true">
-        <!--<id property="id" column="id"></id>
-        <result property="productnum" column="productnum"></result>
-        <result property="productid" column="productid"></result>-->
-        <association property="product" javaType="com.neuedu.entity.Product" column="id"  autoMapping="true">
-            <id property="id" column="productid"></id>
-            <!--<result property="name" column="name"></result>-->
-            <result property="desc" column="pdesc"></result>
-            <!--<result property="price" column="price"></result>
-            <result property="stock" column="stock"></result>
-            <result property="rule" column="rule"></result>-->
-        </association>
-    </resultMap>
-    <select id="findAllCart"  resultMap="cart_product_resultmap">
-        select c.id  id ,c.productid productid ,c.productnum productnum ,p.name name,p.pdesc pdesc,p.price price,p.stock stock,p.rule rule from  cart c
-        left join product p
-        on c.productid=p.id
+<mapper namespace="com.neuedu.entity.Product">
+    <!--id是方法名,resultType返回值类型,parameterType参数类型-->
+    <select id="findById" resultType="com.neuedu.entity.Product" parameterType="Integer">
+        select * from product where id=#{id}
     </select>
 
+    <select id="findAllProduct" resultType="com.neuedu.entity.Product">
+        select * from product
+    </select>
 
+    <!--分页查询-->
+    <select id="findTotalPage" resultType="Integer">
+        select count(id) from product
+    </select>
+    <select id="findProductByPage" resultType="com.neuedu.entity.Product" parameterType="map">
+        select * from  product limit #{offSet},#{pageSize}
+    </select>
 
-    <delete id="clearCart">
-        delete from  cart
-
+    <!--添加-->
+    <insert id="addProduct" parameterType="com.neuedu.entity.Product" keyColumn="id"
+            keyProperty="id" statementType="PREPARED" useGeneratedKeys="true">
+        insert into product(name,pdesc,price,rule,image,stock) values
+        (#{name},#{desc},#{price},#{rule},#{image},#{stock})
+    </insert>
+    <!--修改-->
+    <update id="updateProduct" parameterType="com.neuedu.entity.Product">
+        update product set name=#{name},pdesc=#{desc},price=#{price},rule=#{rule},image=#{image},stock=#{stock} where id=#{id};
+    </update>
+    <!--删除-->
+    <delete id="deleteProduct" parameterType="Integer">
+        delete from product where id=#{id}
     </delete>
-
 </mapper>

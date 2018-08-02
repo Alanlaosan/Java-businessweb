@@ -3,9 +3,19 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.neuedu.entity.Account">
 
-<select id="find" resultType="com.neuedu.entity.Account" parameterType="map">
-    select * FROM  account WHERE  username=#{username} AND  password=#{password}
-</select>
+    <select id="find" resultType="com.neuedu.entity.Account" parameterType="map">
+         select * FROM  account WHERE  username=#{username} AND  password=#{password}
+    </select>
 
+    <update id="addToken"  parameterType="java.util.Map">
+        UPDATE USER SET token=#{token} WHERE id=#{accountid}
+    </update>
 
+    <select id="findTokenByAccountid" resultType="com.neuedu.entity.Account" parameterType="java.lang.String">
+         select token FROM  account WHERE  accountid=#{accountid}
+    </select>
+
+    <select id="findAllUser" resultType="com.neuedu.entity.Account">
+        select * FROM  account
+    </select>
 </mapper>

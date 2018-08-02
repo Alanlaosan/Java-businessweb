@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.neuedu.dao.ProductDao">
 
-    <update id="updateProduct" parameterType="com.neuedu.entity.Product">
+    <update id="updateProduct" parameterType="product">
         UPDATE product
         <set>
             <if test="name!=null">name=#{name},</if>

@@ -36,10 +36,6 @@ public class TestSession extends HttpServlet {
 		session.setMaxInactiveInterval(20);
 		System.out.println("会话 默认的时间："+session.getMaxInactiveInterval());
 		System.out.println("会话id="+sessionid);
-		
-		
-		
-		
 		Object o=request.getAttribute("data");
 		if(o==null) {
 			session.setAttribute("data", System.currentTimeMillis());

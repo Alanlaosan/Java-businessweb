@@ -3,6 +3,7 @@ package com.neuedu.dao.impl.jdbc;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
 import com.neuedu.dao.OrderDao;
 import com.neuedu.entity.UserOrder;
@@ -13,8 +14,6 @@ public class OrderDaoImpl implements OrderDao {
 	@Override
 	public boolean createOrder(UserOrder userOrder) {
 		// TODO Auto-generated method stub
-		
-		
 		
 		Connection conn=null;
 		Statement st=null;
@@ -48,6 +47,15 @@ public class OrderDaoImpl implements OrderDao {
 	public int generateOrderId() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	/**
+	 * 在映射文件怎样获取参数
+	 * 内置对象args0  args1……(orderno有多个)
+	 * */
+	@Override
+	public UserOrder findOrderByOrderno(long orderno) {
+		return null;
 	}
 
 }

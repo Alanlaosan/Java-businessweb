@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.neuedu.dao.CategoryDao;
 import com.neuedu.dao.impl.jdbc.CategoryDaoImpl;
+import com.neuedu.dao.impl.jdbc.mybatis.CategoryMybatisImpl;
 import com.neuedu.entity.Category;
 import com.neuedu.entity.PageFind;
 import com.neuedu.service.CategoryService;
@@ -11,8 +12,8 @@ import com.neuedu.service.CategoryService;
 public class CategoryServiceImpl implements CategoryService {
 
 	
-	CategoryDao categoryDao=new CategoryDaoImpl();
-	
+	//CategoryDao categoryDao=new CategoryDaoImpl();
+	CategoryDao categoryDao=new CategoryMybatisImpl();
 	@Override
 	public boolean addCategory(Category category) {
 		// TODO Auto-generated method stub

@@ -27,6 +27,7 @@ public class Product implements Serializable{
 	public Product() {
 		super();
 	}
+
 	public Product( String name, String desc, double price, String rule) {
 		super();
 		

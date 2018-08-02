@@ -145,5 +145,10 @@ public class LoginDaoImpl implements ILoginDao {
 		return null;
 	}
 
+	@Override
+	public List<Account> findAllUser() {
+		return null;
+	}
+
 
 }

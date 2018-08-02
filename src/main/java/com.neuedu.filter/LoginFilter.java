@@ -56,7 +56,7 @@ public class LoginFilter implements Filter {
 				if(c.getName().equals("username")) {
 					//用户名
 					username = c.getValue();
-					//立即清除不要了
+					//不要立即清除
 					System.out.println("===Cookieusername======"+username+c.getMaxAge());
 				}
 				if(c.getName().equals("password")) {

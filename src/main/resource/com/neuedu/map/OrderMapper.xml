@@ -1,10 +1,29 @@
 <!DOCTYPE mapper PUBLIC
         "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.neuedu.dao.CartDao">
+<mapper namespace="com.neuedu.dao.OrderDao">
 
-    <insert id="addCart" parameterType="com.neuedu.entity.Cart" statementType="PREPARED" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
-        insert into cart(productid,productnum) VALUE (#{product.id},#{productNum})
+    <insert id="createOrder" parameterType="com.neuedu.entity.UserOrder" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+        insert into userorder(order_no,user_id,shipping_id,payment,payment_type,postage,status,create_time)
+         values (#{order_no},#{user_id},#{shipping_id},#{payment},#{payment_type},#{postage},#{status},now())
     </insert>
+
+    <!--订单明细-->
+    <resultMap id="orderitems_resultmap" type="userorder" autoMapping="true">
+        <result column="order_no" property="order_no" ></result>
+        <!--指定orderItemList是一个ArrayList,ofType是泛型,column是两个表的链接条件-->
+        <collection property="orderItemList" javaType="ArrayList" ofType="userorderitem" column="order_no" autoMapping="true">
+            <result column="order_no" property="order_no" ></result>
+            <result column="productid" property="product_id"></result>
+        </collection>
+        
+    </resultMap>
+    <select id="findOrderByOrderno" parameterType="long" resultMap="orderitems_resultmap">
+        select uo.order_no,uo.user_id ,uo.shipping_id ,uo.payment,uo.payment_type,uo.status,
+         uoi.order_no,uoi.productid,uoi.product_name,uoi.current_unit_price,uoi.quantity from userorder uo
+         left join userorderitem uoi
+          on uo.order_no=uoi.order_no
+          where uo.order_no=#{args0}
+    </select>
 
 </mapper>

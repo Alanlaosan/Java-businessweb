@@ -13,9 +13,16 @@ public class PageFind<T> {
 	private int totalpage;
 	//µ±Ç°Ò³Ãæ
 	private int currentpage;
-	
-	
-	
+
+	@Override
+	public String toString() {
+		return "PageFind{" +
+				"data=" + data +
+				", totalpage=" + totalpage +
+				", currentpage=" + currentpage +
+				'}';
+	}
+
 	public PageFind() {
 		super();
 	}
