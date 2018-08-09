@@ -14,7 +14,6 @@ public class Cart  implements Serializable{
 	private  int id;
 	private  Product  product;
 	private int productid;
-	
 	private  int  productnum;//商品数量
 	public Cart(int id,int productid, int productnum, Product  product) {
 		super();

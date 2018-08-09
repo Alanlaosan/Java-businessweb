@@ -13,7 +13,10 @@ import com.neuedu.entity.Category;
 import com.neuedu.entity.PageFind;
 import com.neuedu.entity.Product;
 import com.neuedu.service.CategoryService;
+import com.neuedu.service.ProductService;
 import com.neuedu.service.impl.CategoryServiceImpl;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 @WebServlet("/View/category")
 public class CategoryController extends HttpServlet {
@@ -22,7 +25,16 @@ public class CategoryController extends HttpServlet {
 	 * 
 	 */
 	private static final long serialVersionUID = -8139639075549663507L;
-	CategoryService pService = new CategoryServiceImpl();
+	CategoryService categoryService /*= new CategoryServiceImpl()*/;
+
+	@Override
+	public void init() throws ServletException {
+		//获取ioc容器
+		WebApplicationContext mWebApplicationContext
+				= WebApplicationContextUtils.getWebApplicationContext(this.getServletContext());
+		//直接从容器中获取，就不用注入了
+		categoryService =(CategoryService) mWebApplicationContext.getBean("categoryService");
+	}
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -83,7 +95,7 @@ public class CategoryController extends HttpServlet {
 
 	/** 添加商品 */
 	public boolean addCategory(Category category) {
-		return pService.addCategory(category);
+		return categoryService.addCategory(category);
 	}
 
 	/**
@@ -111,7 +123,7 @@ public class CategoryController extends HttpServlet {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
-    	PageFind<Category> pagefind=pService.findCagByPage(_pageNo, _pageSize);
+    	PageFind<Category> pagefind=categoryService.findCagByPage(_pageNo, _pageSize);
         
     	request.setAttribute("pageFind",pagefind);
     	request.getRequestDispatcher("showcategorybypage.jsp").forward(request, response);
@@ -151,7 +163,7 @@ public class CategoryController extends HttpServlet {
 	/** 修改类别 */
 	public boolean updateCategory(Category category) {
 		// return pService.updateProduct(product);
-	    return pService.updateCategory(category);
+	    return categoryService.updateCategory(category);
 	}
 
 	/**
@@ -166,7 +178,7 @@ public class CategoryController extends HttpServlet {
 		int id = 0;
 		try {
 			id = Integer.parseInt(sid);
-			boolean result = pService.deleteCategory(id);
+			boolean result = categoryService.deleteCategory(id);
 
 			if (result) {
 				findAll(request, response);
@@ -186,7 +198,7 @@ public class CategoryController extends HttpServlet {
 		int id = 0;
 		try {
 			id = Integer.parseInt(request.getParameter("id"));
-			Category category = pService.findCategoryById(id);
+			Category category = categoryService.findCategoryById(id);
 			if (category != null) {
 				// 查询成功
 				request.setAttribute("category", category);
@@ -200,7 +212,7 @@ public class CategoryController extends HttpServlet {
 	}
 
 	public Category findCategoryById(int id) {
-		return pService.findCategoryById(id);
+		return categoryService.findCategoryById(id);
 	}
 
 }

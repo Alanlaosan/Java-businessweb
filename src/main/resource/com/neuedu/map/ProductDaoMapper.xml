@@ -12,7 +12,6 @@
             <if test="rule!=null">rule=#{rule},</if>
             <if test="image!=null">image=#{image},</if>
             <if test="stock&gt;0">stock=#{stock},</if>
-
         </set>
         WHERE id=#{id}
     </update>

@@ -4,14 +4,25 @@ import java.util.List;
 
 import com.neuedu.dao.CartDao;
 import com.neuedu.dao.impl.jdbc.CartDaoImpl;
+import com.neuedu.dao.impl.jdbc.mybatis.CartDaoMybatisImpl;
 import com.neuedu.entity.Cart;
 import com.neuedu.entity.PageFind;
 import com.neuedu.service.CartService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service("cartService")
 public class CartServiceImpl implements CartService {
 
-	CartDao cartDao=new CartDaoImpl();
-	
+	@Autowired
+	CartDao cartDao/*=new CartDaoImpl()*/;
+	//CartDao cartDao = new CartDaoMybatisImpl();
+
+
+	public void setCartDao(CartDao cartDao) {
+		this.cartDao = cartDao;
+	}
+
 	@Override
 	public boolean addCart(Cart cart) {
 		// TODO Auto-generated method stub

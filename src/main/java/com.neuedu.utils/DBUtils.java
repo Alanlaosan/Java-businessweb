@@ -17,6 +17,7 @@ public class DBUtils {
 		//加载驱动
 		try {
 			ps.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("jdbc.properties"));
+			//通过反射，实例化驱动类对象
 			Class.forName(ps.getProperty("driver"));
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -52,11 +53,11 @@ public class DBUtils {
 		if(conn!=null) {
 			conn.close();
 		}
-		if(st!=null) {
-			st.close();
-		}
 		if(rs!=null) {
 			rs.close();
+		}
+		if(st!=null) {
+			st.close();
 		}
 	}
 	

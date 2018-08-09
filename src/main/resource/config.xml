@@ -6,7 +6,7 @@
    <!-- <typeAliases>
         <typeAlias alias="Account" type="com.neuedu.entity"/>
     </typeAliases>-->
-    <properties resource="jdbc.properties"/>
+    <!--交给ioc容器处理<properties resource="jdbc.properties"/>-->
     <settings>
         <!--使用LOG4J日志-->
         <setting name="logImpl" value="LOG4J" />
@@ -17,7 +17,7 @@
         <typeAlias type="com.neuedu.entity.UserOrder" alias="userorder"></typeAlias>
         <typeAlias type="com.neuedu.entity.UserOrderItem" alias="userorderitem"></typeAlias>
     </typeAliases>
-    <environments default="development">
+    <!--交给ioc容器处理<environments default="development">
         <environment id="development">
             <transactionManager type="JDBC"></transactionManager>
             <dataSource type="POOLED">
@@ -27,8 +27,8 @@
                 <property name="password" value="${password}"/>
             </dataSource>
         </environment>
-    </environments>
-    <mappers>
+    </environments>-->
+    <!--交给ioc容器处理<mappers>
         <mapper resource="com/neuedu/map/userMapper.xml"/>
         <mapper resource="com/neuedu/map/CartMapper.xml"/>
         <mapper resource="com/neuedu/map/OrderMapper.xml"/>
@@ -36,5 +36,5 @@
         <mapper resource="com/neuedu/map/ProductDaoMapper.xml"/>
         <mapper resource="com/neuedu/map/ProductMapper.xml"/>
         <mapper resource="com/neuedu/map/CategoryMapper.xml"/>
-    </mappers>
+    </mappers>-->
 </configuration>

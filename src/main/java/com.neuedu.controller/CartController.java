@@ -20,20 +20,39 @@ import com.neuedu.service.CartService;
 import com.neuedu.service.ProductService;
 import com.neuedu.service.impl.CartServiceImpl;
 import com.neuedu.service.impl.ProductServiceImpl;
+import com.sun.org.apache.xml.internal.security.Init;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 @WebServlet("/View/cart")
 public class CartController extends HttpServlet {
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest,
-     * javax.servlet.http.HttpServletResponse)
-     */
+
+
+    CartService cartService; /*= new CartServiceImpl();*/
+    ProductService pService;
+
+    //直接从容器中获取，就不用注入了
+    /*public void setCartService(CartService cartService) {
+        this.cartService = cartService;
+    }*/
+
+    @Override
+    public void init() throws ServletException {
+        //获取ioc容器
+        WebApplicationContext mWebApplicationContext
+                = WebApplicationContextUtils.getWebApplicationContext(this.getServletContext());
+        //直接从容器中获取，就不用注入了
+        cartService =(CartService) mWebApplicationContext.getBean("cartService");
+        pService =(ProductService) mWebApplicationContext.getBean("pService");
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // TODO Auto-generated method stub
+
+
+
+
         response.setContentType("text/html;charset=UTF-8");
         String operation = request.getParameter("operation");
 
@@ -69,8 +88,7 @@ public class CartController extends HttpServlet {
         super.doPost(req, resp);
     }
 
-    CartService cartService = new CartServiceImpl();
-    ProductService productService = new ProductServiceImpl();
+
 
     private void addCart(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -83,8 +101,8 @@ public class CartController extends HttpServlet {
             productid = Integer.parseInt(request.getParameter("id"));
             System.out.println(productid + "========");
             productnum = Integer.parseInt(request.getParameter("productnum"));
-            ProductController pc = new ProductController();
-            Product product = pc.findProductById(productid);
+            //ProductController pc = new ProductController();
+            Product product = pService.findProductById(productid);
             if (product.getStock() >= productnum) {
                 if (product != null) {
                     cart.setProduct(product);
@@ -123,12 +141,14 @@ public class CartController extends HttpServlet {
         int id = 0;
         try {
             id = Integer.parseInt(request.getParameter("id"));
+            System.out.println("id="+id);
             boolean result = cartService.deleteCart(id);
             if (result) {
                 System.out.println(id);
 
                 if (cartService.deleteCart(id)) {
                     System.out.println("商品删除成功");
+                    response.sendRedirect("http://localhost:57909/JQ0717/xiaomiShop/wodegouwuche.html");
                     findAllCart(request, response);
                 } else {
                     System.out.println("商品删除失败");
@@ -284,7 +304,7 @@ public class CartController extends HttpServlet {
         // TODO Auto-generated method stub
         int id = 0;
         try {
-            ProductService pService = new ProductServiceImpl();
+            //ProductService pService = new ProductServiceImpl();
             id = Integer.parseInt(request.getParameter("id"));
             Product product = pService.findProductById(id);
             request.setAttribute("product", product);

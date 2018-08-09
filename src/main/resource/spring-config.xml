@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--<bean name="cartService"
+          class="com.neuedu.service.impl.CartServiceImpl">
+        <property name="cartDao" ref="cartDao"></property>
+    </bean>
+
+    <bean name="cartDao"
+          class="com.neuedu.dao.impl.jdbc.mybatis.CartDaoMybatisImpl"></bean>-->
+
+
+
+    <context:component-scan base-package="com.neuedu"></context:component-scan>
+    <context:property-placeholder location="classpath:jdbc.properties"></context:property-placeholder>
+    <!--c3p0带有连接池的数据源-->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="${jdbc.driver}"></property>
+        <property name="jdbcUrl" value="${jdbc.url}"></property>
+        <property name="user" value="${jdbc.username}"></property>
+        <property name="password" value="${jdbc.password}"></property>
+    </bean>
+
+
+    <bean id="sqlSessionFactory"
+          class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="configLocation" value="classpath:config.xml"></property>
+        <property name="mapperLocations" value="classpath:com/neuedu/map/*Mapper.xml"></property>
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+
+    <bean id="sqlSssion" class="org.mybatis.spring.SqlSessionTemplate" scope="prototype">
+        <constructor-arg ref="sqlSessionFactory"></constructor-arg>
+    </bean>
+
+</beans>

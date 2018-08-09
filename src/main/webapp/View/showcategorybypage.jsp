@@ -15,12 +15,14 @@
 <form action="category" method="get">
 	<table>
 		<tr>
+			<th>商品id</th>
 			<th>商品类别</th>
 			<th>类别描述</th>
 			<th>类别库存</th>
 		</tr>
 		<c:forEach items="${pageFind.data}" var="category">
 			<tr>
+				<td>${category.id}</td>
 				<td>${category.name}</td>
 				<td>${category.desc}</td>
 				<td>${category.stock}</td>

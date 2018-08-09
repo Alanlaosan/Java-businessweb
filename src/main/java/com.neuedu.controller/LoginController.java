@@ -11,9 +11,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.neuedu.entity.Account;
+import com.neuedu.service.CartService;
 import com.neuedu.service.ILoginService;
 import com.neuedu.service.impl.LoginServiceImpl;
 import com.neuedu.utils.MD5Utils;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 /**
  * 负责接收用户用户名、密码
@@ -28,10 +31,21 @@ public class LoginController extends HttpServlet {
 	 */
 	private static final long serialVersionUID = 2127867611341493332L;
 
+	ILoginService  loginService/*=new LoginServiceImpl()*/;
+
+	@Override
+	public void init() throws ServletException {
+		//获取ioc容器
+		WebApplicationContext mWebApplicationContext
+				= WebApplicationContextUtils.getWebApplicationContext(this.getServletContext());
+		//直接从容器中获取，就不用注入了
+		loginService =(ILoginService) mWebApplicationContext.getBean("loginService");
+	}
+
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		ILoginService  loginService=new LoginServiceImpl();
+
 		
 		/*String username = null;
 		String password = null;

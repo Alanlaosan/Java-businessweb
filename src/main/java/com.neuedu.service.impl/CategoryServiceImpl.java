@@ -8,12 +8,16 @@ import com.neuedu.dao.impl.jdbc.mybatis.CategoryMybatisImpl;
 import com.neuedu.entity.Category;
 import com.neuedu.entity.PageFind;
 import com.neuedu.service.CategoryService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service("categoryService")
 public class CategoryServiceImpl implements CategoryService {
 
-	
+
+	@Autowired
 	//CategoryDao categoryDao=new CategoryDaoImpl();
-	CategoryDao categoryDao=new CategoryMybatisImpl();
+	CategoryDao categoryDao/*=new CategoryMybatisImpl()*/;
 	@Override
 	public boolean addCategory(Category category) {
 		// TODO Auto-generated method stub

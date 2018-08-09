@@ -1,32 +1,20 @@
 package com.neuedu.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
-//public class CateGory {
-//	private String name;
-//	private String desc;
-//	public String getName() {
-//		return name;
-//	}
-//	public void setName(String name) {
-//		this.name = name;
-//	}
-//	public String getDesc() {
-//		return desc;
-//	}
-//	public void setDesc(String desc) {
-//		this.desc = desc;
-//	}
+
 public class Category implements Serializable {
 
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -6074164784883227128L;
 	private int id;// 类别名称
+	/*private int parents_id;//父类id*/
 	private String name;// 类别名称
 	private String desc;// 类别描述
+	/*private long create_time;
+	private long update_time;
+	private Product product;*/
 	private  int  stock;//库存
 
 	

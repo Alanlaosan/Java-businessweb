@@ -8,12 +8,17 @@ import com.neuedu.dao.impl.jdbc.mybatis.ProductMybatisImpl;
 import com.neuedu.entity.PageFind;
 import com.neuedu.entity.Product;
 import com.neuedu.service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service("pService")
 public class ProductServiceImpl implements ProductService {
 
-	
+
+	@Autowired
 	//ProductDao productDao=new ProductDaoImpl();
-	ProductDao productDao=new ProductMybatisImpl();
+	ProductDao productDao/*=new ProductMybatisImpl()*/;
+
 	@Override
 	public boolean addProduct(Product product) {
 		// TODO Auto-generated method stub

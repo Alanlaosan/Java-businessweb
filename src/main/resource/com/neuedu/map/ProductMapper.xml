@@ -5,13 +5,13 @@
 
     <!--id是方法名,resultType返回值类型,parameterType参数类型-->
     <insert id="addProduct" parameterType="com.neuedu.entity.Product" keyColumn="id"
-    keyProperty="id" useGeneratedKeys="true" statementType="PREPARED">
+            keyProperty="id" useGeneratedKeys="true" statementType="PREPARED">
         insert into product(name,pdesc,price,rule,image,stock) values
         (#{name},#{desc},#{price},#{rule},#{image},#{stock})
     </insert>
 
-    <select id="findAll" resultType="com.neuedu.entity.Product">
-        select * from product
+    <select id="findAll" resultMap="productmap">
+        select id,name,pdesc,price,rule,image,stock from product
     </select>
 
     <update id="updateProduct" parameterType="com.neuedu.entity.Product" >
@@ -23,7 +23,7 @@
         delete from product where id=#{id}
     </delete>
 
-    <select id="findById" parameterType="Integer" resultType="com.neuedu.entity.Product">
+    <select id="findById" parameterType="Integer" resultMap="productmap">
         select * from product where id=#{id}
     </select>
 
@@ -31,7 +31,17 @@
     <select id="findTotalpage" resultType="Integer">
         select count(id) from  product
     </select>
-    <select id="findProductPage" resultType="com.neuedu.entity.Product" parameterType="java.util.Map">
+    <select id="findProductPage" resultMap="productmap" parameterType="java.util.Map">
         select id,name,pdesc,price,rule ,image,stock from  product limit #{offset},#{pageSize}
     </select>
+
+    <resultMap id="productmap" type="com.neuedu.entity.Product">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="pdesc" property="desc"/>
+        <result column="price" property="price"/>
+        <result column="rule" property="rule"/>
+        <result column="image" property="image"/>
+        <result column="stock" property="stock"/>
+    </resultMap>
 </mapper>

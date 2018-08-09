@@ -39,6 +39,8 @@ public class OrderServiceImpl implements OrderService {
 		 if(carts==null||carts.size()<=0) {
 			 return false;
 		 }
+
+
 		//step2:生成订单实体类 UserOrder
 		   UserOrder   userOrder=createUserOrder();
 		   

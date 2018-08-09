@@ -12,20 +12,32 @@ import com.neuedu.entity.Category;
 import com.neuedu.entity.PageFind;
 import com.neuedu.service.CategoryService;
 import com.neuedu.service.impl.CategoryServiceImpl;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
+
 @WebServlet("/categorybypage.do")
 public class categorypage extends HttpServlet{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	CategoryService pService = new CategoryServiceImpl();
+	CategoryService categoryService /*= new CategoryServiceImpl()*/;
+
+	@Override
+	public void init() throws ServletException {
+		//获取ioc容器
+		WebApplicationContext mWebApplicationContext
+				= WebApplicationContextUtils.getWebApplicationContext(this.getServletContext());
+		//直接从容器中获取，就不用注入了
+		categoryService =(CategoryService) mWebApplicationContext.getBean("categoryService");
+	}
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//分页模型
 		String pageNo = request.getParameter("pageNo");
-		PageFind<Category> pagefind = pService.findCagByPage(Integer.parseInt(pageNo), 4);
+		PageFind<Category> pagefind = categoryService.findCagByPage(Integer.parseInt(pageNo), 4);
 		request.setAttribute("pageFind", pagefind);
 		request.getRequestDispatcher("View/showcategorybypage.jsp").forward(request, response);
 		//super.doGet(request, response);

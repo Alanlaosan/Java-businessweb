@@ -12,10 +12,23 @@ import com.neuedu.entity.PageFind;
 import com.neuedu.entity.Product;
 import com.neuedu.service.ProductService;
 import com.neuedu.service.impl.ProductServiceImpl;
-
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
+/**
+ * 商品分页是这里的
+ * */
 @WebServlet("/productbypage.do")
 public class testpage extends HttpServlet{
-	ProductService pService = new ProductServiceImpl();
+	ProductService pService /*= new ProductServiceImpl()*/;
+
+	@Override
+	public void init() throws ServletException {
+		//获取ioc容器
+		WebApplicationContext mWebApplicationContext
+				= WebApplicationContextUtils.getWebApplicationContext(this.getServletContext());
+		//直接从容器中获取，就不用注入了
+		pService =(ProductService) mWebApplicationContext.getBean("pService");
+	}
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

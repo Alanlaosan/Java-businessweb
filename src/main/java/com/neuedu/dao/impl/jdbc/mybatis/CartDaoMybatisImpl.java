@@ -9,6 +9,8 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -16,40 +18,48 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Repository
 public class CartDaoMybatisImpl implements CartDao{
+
+    @Autowired
+    private SqlSession sqlSession;
 
     @Override
     public boolean addCart(Cart cart) {
 
-        SqlSessionFactory factory = MyBatisUtils.getSqlSessionFactory();
-        SqlSession sqlSession = factory.openSession();
+        /*SqlSessionFactory factory = MyBatisUtils.getSqlSessionFactory();
+        SqlSession sqlSession = factory.openSession();*/
         CartDao cartDao= sqlSession.getMapper(CartDao.class);
         cartDao.addCart(cart);
         //手动提交事务
-        sqlSession.commit();
-        sqlSession.close();
+        /*sqlSession.commit();
+        sqlSession.close();*/
         return false;
     }
 
     @Override
     public boolean deleteCart(int id) {
-        return false;
+        CartDao cartDao= sqlSession.getMapper(CartDao.class);
+        cartDao.deleteCart(id);
+        return true;
+
     }
 
     @Override
     public boolean updataeCart(Cart cart) {
+
         return false;
     }
 
     @Override
     public List<Cart> findAllCart() {
-        SqlSessionFactory factory = MyBatisUtils.getSqlSessionFactory();
-        SqlSession sqlSession = factory.openSession();
+        /*SqlSessionFactory factory = MyBatisUtils.getSqlSessionFactory();
+        SqlSession sqlSession = factory.openSession();*/
         CartDao cartDao= sqlSession.getMapper(CartDao.class);
         List<Cart> list= cartDao.findAllCart();
         //手动提交事务
-        sqlSession.commit();
-        sqlSession.close();
+        /*sqlSession.commit();
+        sqlSession.close();*/
         return list;
     }
 
@@ -65,16 +75,18 @@ public class CartDaoMybatisImpl implements CartDao{
 
     @Override
     public void clearCart() {
-        SqlSessionFactory factory = MyBatisUtils.getSqlSessionFactory();
-        SqlSession sqlSession = factory.openSession();
+        /*SqlSessionFactory factory = MyBatisUtils.getSqlSessionFactory();
+        SqlSession sqlSession = factory.openSession();*/
         CartDao cartDao = sqlSession.getMapper(CartDao.class);
-        sqlSession.commit();
-        sqlSession.close();
+        /*sqlSession.commit();
+        sqlSession.close();*/
 
     }
 
     @Override
     public Cart findById(int id) {
+        CartDao cartDao= sqlSession.getMapper(CartDao.class);
+        cartDao.findById(id);
         return null;
     }
 

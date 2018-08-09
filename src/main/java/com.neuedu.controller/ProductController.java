@@ -11,13 +11,26 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.neuedu.entity.PageFind;
 import com.neuedu.entity.Product;
+import com.neuedu.service.CartService;
 import com.neuedu.service.ProductService;
 import com.neuedu.service.impl.ProductServiceImpl;
+import org.apache.ibatis.type.DoubleTypeHandler;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 @WebServlet("/View/product")
 public class ProductController extends HttpServlet {
 
-	ProductService pService = new ProductServiceImpl();
+	ProductService pService /*= new ProductServiceImpl()*/;
+
+	@Override
+	public void init() throws ServletException {
+		//获取ioc容器
+		WebApplicationContext mWebApplicationContext
+				= WebApplicationContextUtils.getWebApplicationContext(this.getServletContext());
+		//直接从容器中获取，就不用注入了
+		pService =(ProductService) mWebApplicationContext.getBean("pService");
+	}
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -129,25 +142,7 @@ public class ProductController extends HttpServlet {
 	 * @throws ServletException
 	 */
 	public void findAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/*
-		String pageNo=request.getParameter("pageNo");
-		String pageSize=request.getParameter("pageSize");
-		int _pageNo = 1;
-		int _pageSize =4;
-		try {
-			_pageNo = Integer.parseInt(pageNo);
-			_pageSize = Integer.parseInt(pageSize);
-			
-			
 
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
-		}
-		System.out.println("shicaile");
-		PageFind<Product> pagefind = pService.findProByPage(_pageNo, _pageSize);
-
-		request.setAttribute("pagefind", pagefind);
-		request.getRequestDispatcher("findallbypage.jsp").forward(request, response);*/
 		String pageNo=request.getParameter("pageNo");
     	String pageSize=request.getParameter("pageSize");
     	int _pageNo=1;
@@ -226,7 +221,10 @@ public class ProductController extends HttpServlet {
 			id = Integer.parseInt(sid);
 			boolean result = pService.deleteProduct(id);
 
+			System.out.println(""+result);
 			if (result) {
+
+				System.out.println("删除id=" + id + "的商品成功！");
 				findAll(request, response);
 			} else {
 				System.out.println("删除id=" + id + "的商品失败！！！");
